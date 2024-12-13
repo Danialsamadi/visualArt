@@ -152,11 +152,13 @@ function App() {
         {showDescription && (
             <div style={{
               position: 'absolute',
-              bottom: '2rem',
-              left: '2rem',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '90%', // Use a percentage width for better responsiveness
               maxWidth: '400px',
-              padding: '1.5rem',
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              padding: '1rem', // Smaller padding for mobile
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
               backdropFilter: 'blur(10px)',
               borderRadius: '1rem',
               border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -164,6 +166,7 @@ function App() {
               fontFamily: 'system-ui, -apple-system, sans-serif',
               zIndex: 1000,
               transition: 'opacity 0.3s ease',
+              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
             }}>
               <button
                   onClick={() => setShowDescription(false)}
@@ -192,8 +195,9 @@ function App() {
 
               <h2 style={{
                 margin: '0 0 0.5rem 0',
-                fontSize: '1.5rem',
+                fontSize: '1.2rem', // Smaller font for mobile
                 fontWeight: '500',
+                textAlign: 'center',
                 color: 'rgba(255, 255, 255, 0.9)'
               }}>
                 Mathematical Visualization
@@ -202,6 +206,7 @@ function App() {
                 margin: '0',
                 fontSize: '0.9rem',
                 lineHeight: '1.5',
+                textAlign: 'center',
                 color: 'rgba(255, 255, 255, 0.7)'
               }}>
                 This is a 3D visualization of a mathematical formula transformed into a dynamic point cloud.
@@ -214,6 +219,33 @@ function App() {
                 marginTop: '1rem',
                 textAlign: 'center'
               }}>
+                Get the Idea from this&nbsp;
+                <a
+                    href="https://x.com/yuruyurau/status/1844771001315283451"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: 'rgba(32,182,170,0.9)',
+                      textDecoration: 'underline',
+                      fontSize: '1rem',
+                    }}
+                >
+                  Tweet
+                </a>
+                <a
+                    href="https://github.com/Danialsamadi/visualArt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'block',
+                      color: 'rgba(32,182,170,0.9)',
+                      textDecoration: 'underline',
+                      fontSize: '1rem',
+                      marginTop: '0.5rem'
+                    }}
+                >
+                  Source Code
+                </a>
               </div>
             </div>
         )}
