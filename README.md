@@ -15,7 +15,7 @@ This project is not only a visual treat but also a demonstration of the intersec
 
 ## Links
 - Get the idea from this [Tweet](https://x.com/yuruyurau/status/1844771001315283451).
-- Explore the [Source Code](https://github.com/Danialsamadi/visualArt).
+- Explore the [Source Code](https://github.com/Danialsamadi/visualArt/tree/main/src).
 
 ---
 
