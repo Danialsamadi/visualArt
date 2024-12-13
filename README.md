@@ -1,120 +1,118 @@
-# Getting Started with Create React App
+# Project Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project showcases a **3D visualization of a dynamic point cloud**, built around a mathematical formula that brings abstract mathematical concepts to life. Each point in the visualization represents a calculated position in 3D space, determined by a combination of **trigonometric functions** and **vector mathematics**.
 
-## Available Scripts
+## Key Features
+- **Mathematical Precision**: The formula's calculations create a structured yet organic flow, capturing the essence of mathematical beauty.
+- **Dynamic Movement**: Points oscillate and rotate smoothly in 3D space, giving the visualization a lively and engaging effect.
+- **Depth-Based Coloring**: The colors of the points change dynamically based on their depth along the z-axis, adding visual depth and richness to the display.
+- **Interactive and Responsive**: Designed to adapt to various screen sizes, providing a seamless experience across devices.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is not only a visual treat but also a demonstration of the intersection of **mathematics**, **graphics programming**, and **creative coding**. Whether you're a developer exploring advanced rendering techniques or a math enthusiast intrigued by formulas brought to life, this project offers something inspiring for everyone.
+### [Project Link](https://danialsamadi.github.io/visualArt/)
 
 
 
-### Formula
+## Links
+- Get the idea from this [Tweet](https://x.com/yuruyurau/status/1844771001315283451).
+- Explore the [Source Code](https://github.com/Danialsamadi/visualArt).
+
+---
+
+# Mathematical Formula for Visualization
+
+## Precomputations
+
+1. **Normalize \(x\) and \(y\):**
+
+   $$
+   k = \frac{x}{8} - 25, \quad e = \frac{y}{8} - 25
+   $$
+
+2. **Calculate the magnitude (\(o\)) and angle-based terms:**
+
+   $$
+   o = \frac{\sqrt{k^2 + e^2}}{3}
+   $$
+
+   $$
+   d = 5 \cdot \cos(o)
+   $$
+
+3. **Intermediate variables (\(q\) and \(c\)):**
+
+   $$
+   q = \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t)
+   $$
+
+   $$
+   c = \frac{d}{3} - \frac{t}{8}
+   $$
+
+---
+
+## Final 3D Coordinates
+
+1. **\(px\) (X-coordinate):**
+
+   $$
+   px = q \cdot \sin(c) \cdot \text{scale}
+   $$
+
+2. **\(py\) (Y-coordinate):**
+
+   $$
+   py = \left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c) \cdot \text{scale}
+   $$
+
+3. **\(pz\) (Z-coordinate):**
+
+   $$
+   pz = o \cdot 10 \cdot \text{scale}
+   $$
+
+---
+
+## Compact Representation
+
+The 3D coordinates can be represented as:
+
 $$
-\documentclass[border=10pt]{standalone}
-\usepackage{amsmath}
-\usepackage{xcolor}
-
-\pagecolor{black} % Set background to black
-\color{white}     % Set text color to white
-
-\begin{document}
-
-% Formula representation
-\[
-\begin{aligned}
-    k &= \frac{x}{8} - 25, \quad e = \frac{y}{8} - 25 \\
-    o &= \frac{\sqrt{k^2 + e^2}}{3} \\
-    d &= 5 \cdot \cos(o) \\
-    q &= \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t) \\
-    c &= \frac{d}{3} - \frac{t}{8} \\
-    px &= q \cdot \sin(c) \cdot \text{scale} \\
-    py &= \left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c) \cdot \text{scale} \\
-    pz &= o \cdot 10 \cdot \text{scale}
-\end{aligned}
-\]
-
-% Compact vector representation
-\[
-(px, py, pz) = 
-\left( 
-q \cdot \sin(c), 
-\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c), 
-o \cdot 10 
+(px, py, pz) =
+\left(
+q \cdot \sin(c),
+\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c),
+o \cdot 10
 \right) \cdot \text{scale}
-\]
-
-% Definitions
-\[
-\begin{aligned}
-    q &= \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t), \\
-    c &= \frac{d}{3} - \frac{t}{8}, \quad 
-    d = 5 \cdot \cos(o), \quad 
-    o = \frac{\sqrt{k^2 + e^2}}{3}.
-\end{aligned}
-\]
-
-\end{document}
 $$
+
+Where:
+
+$$
+q = \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t), \quad
+c = \frac{d}{3} - \frac{t}{8}, \quad
+d = 5 \cdot \cos(o), \quad
+o = \frac{\sqrt{k^2 + e^2}}{3}.
+$$
+
+---
+## Run the Project
+
+### Development Mode
+Start the development server:
+
+```bash
+npm start
+```
+
+Open **localhost** to view it in the browser.
+
+### Build for Production
+
+Generate an optimized production build:
+
+```bash
+npm run build
+```
+The build folder contains the ready-to-deploy app.
+
