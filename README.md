@@ -68,3 +68,53 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### Formula
+$$
+\documentclass[border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\pagecolor{black} % Set background to black
+\color{white}     % Set text color to white
+
+\begin{document}
+
+% Formula representation
+\[
+\begin{aligned}
+    k &= \frac{x}{8} - 25, \quad e = \frac{y}{8} - 25 \\
+    o &= \frac{\sqrt{k^2 + e^2}}{3} \\
+    d &= 5 \cdot \cos(o) \\
+    q &= \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t) \\
+    c &= \frac{d}{3} - \frac{t}{8} \\
+    px &= q \cdot \sin(c) \cdot \text{scale} \\
+    py &= \left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c) \cdot \text{scale} \\
+    pz &= o \cdot 10 \cdot \text{scale}
+\end{aligned}
+\]
+
+% Compact vector representation
+\[
+(px, py, pz) = 
+\left( 
+q \cdot \sin(c), 
+\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c), 
+o \cdot 10 
+\right) \cdot \text{scale}
+\]
+
+% Definitions
+\[
+\begin{aligned}
+    q &= \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t), \\
+    c &= \frac{d}{3} - \frac{t}{8}, \quad 
+    d = 5 \cdot \cos(o), \quad 
+    o = \frac{\sqrt{k^2 + e^2}}{3}.
+\end{aligned}
+\]
+
+\end{document}
+$$
