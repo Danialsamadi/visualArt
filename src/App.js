@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import './App.css';
 
 function App() {
   const mountRef = useRef(null);
   const rendererRef = useRef(null);
+  const [showDescription, setShowDescription] = useState(true);
 
   useEffect(() => {
     const mountNode = mountRef.current;
@@ -15,7 +16,7 @@ function App() {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     rendererRef.current = renderer;
-    
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000);
     mountNode.appendChild(renderer.domElement);
@@ -45,7 +46,7 @@ function App() {
       const q = x/2 + k/atan(9*cos(e))*sin(d*4-t);
       const c = d/3-t/8;
       return [
-        q*sin(c)*scale, 
+        q*sin(c)*scale,
         (y/4+5*o*o+q)/2*cos(c)*scale,
         (o * 10)*scale
       ];
@@ -56,7 +57,7 @@ function App() {
       for(let x = 0; x < 400; x += 1) {
         const [px, py, pz] = a(x, y);
         positions.push(px, py, pz);
-        
+
         // Add color based on position and z-depth
         color.setHSL(Math.abs(pz*2), 0.7, 0.5);
         colors.push(color.r, color.g, color.b);
@@ -95,7 +96,7 @@ function App() {
 
       // Update positions
       const positions = points.geometry.attributes.position.array;
-      let i = 0;
+      let i = 7;
       for(let y = 0; y < 400; y += 1) {
         for(let x = 0; x < 400; x += 1) {
           const [px, py, pz] = a(x, y);
@@ -140,12 +141,83 @@ function App() {
   }, []);
 
   return (
-    <div ref={mountRef} style={{ 
-      width: '100vw', 
-      height: '100vh', 
-      backgroundColor: 'black',
-      overflow: 'hidden'
-    }} />
+      <div style={{ position: 'relative' }}>
+        <div ref={mountRef} style={{
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'black',
+          overflow: 'hidden'
+        }} />
+
+        {showDescription && (
+            <div style={{
+              position: 'absolute',
+              bottom: '2rem',
+              left: '2rem',
+              maxWidth: '400px',
+              padding: '1.5rem',
+              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '1rem',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              color: 'white',
+              fontFamily: 'system-ui, -apple-system, sans-serif',
+              zIndex: 1000,
+              transition: 'opacity 0.3s ease',
+            }}>
+              <button
+                  onClick={() => setShowDescription(false)}
+                  style={{
+                    position: 'absolute',
+                    top: '1rem',
+                    right: '1rem',
+                    background: 'none',
+                    border: 'none',
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    cursor: 'pointer',
+                    fontSize: '1.2rem',
+                    padding: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                    transition: 'all 0.2s ease',
+                  }}
+                  aria-label="Close description"
+              >
+                ×
+              </button>
+
+              <h2 style={{
+                margin: '0 0 0.5rem 0',
+                fontSize: '1.5rem',
+                fontWeight: '500',
+                color: 'rgba(255, 255, 255, 0.9)'
+              }}>
+                Mathematical Visualization
+              </h2>
+              <p style={{
+                margin: '0',
+                fontSize: '0.9rem',
+                lineHeight: '1.5',
+                color: 'rgba(255, 255, 255, 0.7)'
+              }}>
+                This is a 3D visualization of a mathematical formula transformed into a dynamic point cloud.
+                Each point's position is calculated using trigonometric functions and vector mathematics,
+                creating an organic, flowing pattern. The colors shift based on the depth (z-axis) of each point,
+                while the entire structure gently rotates in 3D space.
+              </p>
+
+              <div style={{
+                marginTop: '1rem',
+                textAlign: 'center'
+              }}>
+              </div>
+            </div>
+        )}
+      </div>
   );
 }
 
