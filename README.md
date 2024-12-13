@@ -25,26 +25,15 @@ This project is not only a visual treat but also a demonstration of the intersec
 
 1. **Normalize \(x\) and \(y\):**
 
-
-   $$
-   k = \frac{x}{8} - 25, \quad e = \frac{y}{8} - 25
-   $$
+   \( k = \frac{x}{8} - 25, \quad e = \frac{y}{8} - 25 \)
 
 2. **Calculate the magnitude (\(o\)) and angle-based terms:**
 
-
-   $$
-   o = \frac{\sqrt{k^2 + e^2}}{3}, \quad d = 5 \cdot \cos(o)
-   $$
+   \( o = \frac{\sqrt{k^2 + e^2}}{3}, \quad d = 5 \cdot \cos(o) \)
 
 3. **Intermediate variables (\(q\) and \(c\)):**
 
-
-   $$
-   q = \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t), \quad c = \frac{d}{3} - \frac{t}{8}
-   $$
-
-
+   \( q = \frac{x}{2} + \frac{k}{\arctan(9 \cdot \cos(e))} \cdot \sin(d \cdot 4 - t), \quad c = \frac{d}{3} - \frac{t}{8} \)
 ---
 
 ## Final 3D Coordinates
