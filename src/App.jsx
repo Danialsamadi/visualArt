@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     rendererRef.current = renderer;
 
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000);
     mountNode.appendChild(renderer.domElement);
@@ -43,12 +45,16 @@ function App() {
       let e = y/8-25;
       let o = mag(k, e)/3;
       let d = 5 * cos(o);
-      const q = x/2 + k/atan(9*cos(e))*sin(d*4-t);
+      // guard: atan(9*cos(e)) can approach 0, producing Infinity/NaN vertices
+      const denom = atan(9*cos(e));
+      const q = x/2 + k/(Math.abs(denom) < 1e-6 ? 1e-6 : denom)*sin(d*4-t);
       const c = d/3-t/8;
+      // z gets the same trig treatment as x/y so the cloud has real volume:
+      // a swirling term (q-based) plus a breathing radial wave (d/o-based)
       return [
         q*sin(c)*scale,
         (y/4+5*o*o+q)/2*cos(c)*scale,
-        (o * 10)*scale
+        (q*0.9*cos(c*2 + o/4) + d*15*sin(o - t/3))*scale
       ];
     };
 
@@ -87,31 +93,43 @@ function App() {
     camera.position.y = 0.5;
     camera.lookAt(0, 0, 0);
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
     // Animation
     let animationFrameId;
+    const clock = new THREE.Clock();
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      t += PI/120;
+      // frame-rate independent: PI/120 per frame at the original 60fps baseline
+      t += PI/2 * clock.getDelta();
 
-      // Update positions
+      // Update positions and depth-based colors
       const positions = points.geometry.attributes.position.array;
-      let i = 7;
+      const colorArr = points.geometry.attributes.color.array;
+      let i = 0;
       for(let y = 0; y < 400; y += 1) {
         for(let x = 0; x < 400; x += 1) {
           const [px, py, pz] = a(x, y);
           positions[i] = px;
           positions[i + 1] = py;
           positions[i + 2] = pz;
+          color.setHSL((pz*0.5 + 0.5) % 1, 0.7, 0.5);
+          colorArr[i] = color.r;
+          colorArr[i + 1] = color.g;
+          colorArr[i + 2] = color.b;
           i += 3;
         }
       }
       points.geometry.attributes.position.needsUpdate = true;
+      points.geometry.attributes.color.needsUpdate = true;
 
       // Rotate the point cloud
       points.rotation.y += 0.001;
       points.rotation.x += 0.0005;
 
+      controls.update();
       renderer.render(scene, camera);
     };
 
@@ -135,6 +153,7 @@ function App() {
         mountNode.removeChild(rendererRef.current.domElement);
         rendererRef.current.dispose();
       }
+      controls.dispose();
       geometry.dispose();
       material.dispose();
     };

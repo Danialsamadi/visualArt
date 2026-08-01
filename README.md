@@ -6,7 +6,7 @@ This project showcases a **3D visualization of a dynamic point cloud**, built ar
 - **Mathematical Precision**: The formula's calculations create a structured yet organic flow, capturing the essence of mathematical beauty.
 - **Dynamic Movement**: Points oscillate and rotate smoothly in 3D space, giving the visualization a lively and engaging effect.
 - **Depth-Based Coloring**: The colors of the points change dynamically based on their depth along the z-axis, adding visual depth and richness to the display.
-- **Interactive and Responsive**: Designed to adapt to various screen sizes, providing a seamless experience across devices.
+- **Interactive and Responsive**: Drag to rotate and scroll to zoom the point cloud (OrbitControls), with a layout that adapts to any screen size.
 
 This project is not only a visual treat but also a demonstration of the intersection of **mathematics**, **graphics programming**, and **creative coding**. Whether you're a developer exploring advanced rendering techniques or a math enthusiast intrigued by formulas brought to life, this project offers something inspiring for everyone.
 ### [Project Link](https://danialsamadi.github.io/visualArt/)
@@ -47,12 +47,12 @@ This project is not only a visual treat but also a demonstration of the intersec
 2. **py (Y-coordinate):**
 
 
-   $`py = \left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c) \cdot \text{scale}`$
+   $`py = \frac{1}{2}\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c) \cdot \text{scale}`$
 
-3. **pz (Z-coordinate):**
+3. **pz (Z-coordinate):** a swirl term (reusing \(q\), phase-shifted into depth) plus a breathing radial wave, so the cloud fills real volume instead of sitting on a surface:
 
 
-   $`pz = o \cdot 10 \cdot \text{scale}`$
+   $`pz = \left( 0.9 \cdot q \cdot \cos\!\left(2c + \frac{o}{4}\right) + 15 \cdot d \cdot \sin\!\left(o - \frac{t}{3}\right) \right) \cdot \text{scale}`$
 
 ---
 
@@ -65,8 +65,8 @@ $$
 (px, py, pz) =
 \left(
 q \cdot \sin(c),
-\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c),
-o \cdot 10
+\frac{1}{2}\left( \frac{y}{4} + 5 \cdot o^2 + q \right) \cdot \cos(c),
+0.9 \cdot q \cdot \cos\!\left(2c + \frac{o}{4}\right) + 15 \cdot d \cdot \sin\!\left(o - \frac{t}{3}\right)
 \right) \cdot \text{scale}
 \end{align*}
 $$
@@ -85,14 +85,17 @@ $$
 ---
 ## Run the Project
 
+Built with **React 19**, **three.js**, and **Vite**.
+
 ### Development Mode
-Start the development server:
+Install dependencies and start the dev server:
 
 ```bash
-npm start
+npm install
+npm run dev
 ```
 
-Open **localhost** to view it in the browser.
+Open the printed **localhost** URL to view it in the browser.
 
 ### Build for Production
 
@@ -101,5 +104,9 @@ Generate an optimized production build:
 ```bash
 npm run build
 ```
-The build folder contains the ready-to-deploy app.
+The `dist` folder contains the ready-to-deploy app. Deploy to GitHub Pages with:
+
+```bash
+npm run deploy
+```
 
